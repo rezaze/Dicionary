@@ -1,5 +1,18 @@
 "use strict"
 
+let images = [
+    "https://wallpaperaccess.com/full/253371.jpg",
+    'https://wallpaperaccess.com/full/253337.jpg',
+    'https://wallpaperaccess.com/full/253418.jpg',
+    'https://wallpaperaccess.com/full/5487840.jpg',
+    'https://wallpaperaccess.com/full/5487841.jpg',
+    'https://wallpaperaccess.com/full/253342.jpg',
+    'https://wallpaperaccess.com/full/2862191.jpg',
+    'https://wallpaperaccess.com/full/253322.jpg',
+    'https://wallpaperaccess.com/full/5487851.jpg',
+    'https://wallpaperaccess.com/full/2965039.jpg'
+]
+
 let $ = document;
 
 const searchWord = $.getElementById("word"),
@@ -11,9 +24,15 @@ const searchWord = $.getElementById("word"),
     showExample = $.getElementById("example"),
     container = $.querySelector("#con")
 const voicePlay = $.getElementById("au"),
-    loadText = $.getElementById("load-text");
+    loadText = $.getElementById("load-text"),
+    back = $.querySelector("html");
 
 let load = null;
+
+searchWord.addEventListener("keyup",
+    e => e.keyCode === 13 && searchBtn.click()
+)
+
 searchBtn.addEventListener("click", () => {
     let url = `https://api.dictionaryapi.dev/api/v2/entries/en/${searchWord.value}`
 
@@ -31,6 +50,12 @@ searchBtn.addEventListener("click", () => {
 
         })
 
+})
+
+window.addEventListener("load", () => {
+    back.style.background = `url(${images[Math.floor(Math.random()*images.length)]})`
+    back.style.backgroundSize = `100% 100%`;
+    back.style.height = "100%";
 })
 
 function showDescription(item) {
@@ -89,9 +114,6 @@ function showDescription(item) {
     searchWord.value = "";
 
 }
-searchWord.addEventListener("keyup",
-    e => e.keyCode === 13 && searchBtn.click()
-)
 
 function loadingText() {
     loadText.innerHTML = "Loading..."
